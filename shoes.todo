@@ -1,0 +1,26 @@
+☐ Login Reg
+  ☐ Use from events
+
+
+☐ Models
+  ☐ User
+    ☐ first_name:string
+    ☐ last_name:string
+    ☐ email:string (use validator from events)
+    ☐ password:digest
+    ☐ has_many: products_selling
+    ☐ has_many: products_bought
+
+
+  ☐ Product
+    ☐ seller_id:references
+    ☐ name 
+    ☐ amount
+    ☐ sold:boolean
+    ☐ buyer_id?
+
+
+
+
+
+  

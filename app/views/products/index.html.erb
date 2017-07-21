@@ -1,0 +1,26 @@
+| <a href="/users/<%= @logged_in_user.id %>">Go to dashboard</a>
+<h1>Hi <%= @logged_in_user.first_name %>!</h1>
+
+
+<p>Your products that are not yet sold:</p>
+
+<table class="table is-bordered is-striped is-narrow">
+  <tr>
+    <th>Product</th>
+    <th>Seller</th>
+    <th>Date Posted</th>
+    <th>Amount</th>
+    <th>Action</th>
+  </tr>
+<% @products.each do |product| %> 
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.seller.first_name + " " + product.seller.last_name %></td>
+    <td><%= product.created_at.strftime("%B %d, %Y") %></td>
+    <td>$<%= product.amount %></td>
+    <td><a href="/products/<%= product.id %>/buy" data-method="post" rel="nofollow">Buy</a></td>
+  </tr>
+<% end %>
+</table>
+
+

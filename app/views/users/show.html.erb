@@ -1,0 +1,80 @@
+| <a href="/products">Go to all products</a>
+<h1>Hi <%= @logged_in_user.first_name %>!</h1>
+<h2>Sell Product</h2>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+    <p style="color:red;"><%= error %></p>
+  <% end %>
+<% end %>
+<form action="/products" method="post" class="container ">
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<label>Product Name</label>
+<input type="text" name="product[name]" class="input is-primary" required><br>
+<label>Product Price</label>
+<input type="number" name="product[amount]" class="input is-primary" placeholder="$50.00" required><br><br>
+<input type="submit" value="Sell" class="button is-primary" ><br>
+</form><br><br>
+
+<br><br><br><br><br>
+<h3>Your products that are not yet sold:</h3>
+
+<table class="table is-bordered is-striped is-narrow">
+  <tr>
+    <th>Product</th>
+    <th>Date Posted</th>
+    <th>Amount</th>
+    <th>Action</th>
+  </tr>
+<% @products_selling.each do |product| %> 
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.created_at.strftime("%B %d, %Y") %></td>
+    <td>$<%= product.amount %></td>
+    <td><a href="/products/<%= product.id %>" data-method="delete" rel="nofollow">Remove</a></td>
+  </tr>
+<% end %>
+</table>
+
+<h3>Sales:</h3>
+
+<table class="table is-bordered is-striped is-narrow">
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Buyer</th>
+    <th>Amount</th>
+  </tr>
+<% @products_sold.each do |product| %> 
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.date_purchased.strftime("%B %d, %Y") %></td>
+    <td><%= product.buyer.first_name + " " + product.buyer.last_name %></td>
+    <td>$<%= product.amount %></td>
+  </tr>
+<% end %>
+</table>
+<p><b>Sales Total: </b>$<%= @sales %></p>
+
+<h3 id="purchases" >Purchases:</h3>
+
+<table class="table is-bordered is-striped is-narrow">
+  <tr>
+    <th>Product</th>
+    <th>Date Bought</th>
+    <th>Seller</th>
+    <th>Amount</th>
+  </tr>
+<% @products_bought.each do |product| %> 
+  <tr>
+    <td><%= product.name %></td>
+    <td><%= product.date_purchased.strftime("%B %d, %Y") %></td>
+    <td><%= product.seller.first_name + " " + product.seller.last_name %></td>
+    <td>$<%= product.amount %></td>
+  </tr>
+<% end %>
+</table>
+<p><b>Purchases Total: </b>$<%= @purchases %></p>
+
+
+
+
